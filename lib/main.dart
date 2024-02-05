@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -29,10 +30,10 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellow),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Simple Flutter App'),
+      home: const MyHomePage(title: 'BASIC CALCULATOR BEGINNER APP'),
     );
   }
 }
@@ -63,6 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     setState(() {
+
       _counter++;
     });
   }
@@ -70,6 +72,31 @@ class _MyHomePageState extends State<MyHomePage> {
   void _minusCounter() {
     setState(() {
       _counter--;
+    });
+  }
+
+  double result = 0;
+  void _add(){
+    setState(() {
+      result = double.parse(txtFname.text) + double.parse(txtMname.text);
+    });
+  }
+
+  void _minus(){
+    setState(() {
+      result = double.parse(txtFname.text) - double.parse(txtMname.text);
+    });
+  }
+
+  void _divide(){
+    setState(() {
+      result = double.parse(txtFname.text) / double.parse(txtMname.text);
+    });
+  }
+
+  void _multiply(){
+    setState(() {
+      result = double.parse(txtFname.text) * double.parse(txtMname.text);
     });
   }
 
@@ -94,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 controller: txtFname,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Enter your name',
+                  hintText: 'Enter First Number',
                 ),
               ),
             ),
@@ -104,37 +131,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 controller: txtMname,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Enter your favorite song',
+                  hintText: 'Enter Last Number',
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
-              child: TextField(
-                controller: txtLname,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter your favorite film',
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
-              child: ElevatedButton(
-                  onPressed: (){
-                    Fluttertoast.showToast(
-                        msg: "${txtFname.text} ${txtMname.text} ${txtLname.text}",
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.CENTER,
-                        timeInSecForIosWeb: 5,
-                        backgroundColor: Colors.red,
-                        textColor: Colors.white,
-                        fontSize: 16.0
-                    );
-                  },
-                  child: Text('Display all entries')
-              ),
-            )
           ],
         ),
       ),
@@ -144,18 +144,78 @@ class _MyHomePageState extends State<MyHomePage> {
               alignment: Alignment.bottomRight,
               children: [
                 Positioned(
-                    bottom: 100,
+                    bottom: 75,
                     child: FloatingActionButton(
-                      onPressed: _incrementCounter,
-                      tooltip: 'Increment',
+                      onPressed: (){
+                        _add();
+                        Fluttertoast.showToast(
+                            msg: "The Answer is: $result",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 5,
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                            fontSize: 16.0
+                        );
+                      },
+                      tooltip: 'Addition',
                       child: const Icon(Icons.add),
                     )),
                 Positioned(
                     bottom: 0,
                     child: FloatingActionButton(
-                      onPressed: _minusCounter,
-                      tooltip: 'Decrement',
+                      onPressed: (){
+                        _minus();
+                        Fluttertoast.showToast(
+                            msg: "The Answer is: $result",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 5,
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                            fontSize: 16.0
+                        );
+                      },
+                      tooltip: 'Subtract',
                       child: const Icon(Icons.remove),
+                    )),
+                Positioned(
+                    bottom: 75,
+                    right: 75,
+                    child: FloatingActionButton(
+                      onPressed: (){
+                        _divide();
+                        Fluttertoast.showToast(
+                            msg: "The Answer is: $result",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 5,
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                            fontSize: 16.0
+                        );
+                      },
+                      tooltip: 'Divide',
+                      child: const Icon(CupertinoIcons.divide),
+                    )),
+                Positioned(
+                    bottom: 0,
+                    right: 75,
+                    child: FloatingActionButton(
+                      onPressed: (){
+                        _multiply();
+                        Fluttertoast.showToast(
+                            msg: "The Answer is: $result",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 5,
+                            backgroundColor: Colors.pink,
+                            textColor: Colors.blue,
+                            fontSize: 16.0
+                        );
+                      },
+                      tooltip: 'Multiply',
+                      child: const Icon(CupertinoIcons.multiply),
                     )),
               ]
           )
